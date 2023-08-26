@@ -18,13 +18,13 @@ To run this project, you need to have the following installed:
 - Flask-Login
 
 ## Setup in Linux
-1. Clone the repository using the following command:
-```bash
-git clone https://github.com/Dev-Bittu/QuizApp-Flask.git
-```
-2. Install Python and Git (if not already installed) using the following command:
+1. Install Python and Git (if not already installed) using the following command:
 ```bash
 sudo apt install python3 git -y
+```
+2. Clone the repository using the following command:
+```bash
+git clone https://github.com/Dev-Bittu/QuizApp-Flask.git
 ```
 3. Navigate to the project directory using the following command:
 ```bash
