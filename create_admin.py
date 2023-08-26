@@ -1,5 +1,5 @@
 from quiz_app.models import User
-from main import app
+from app import app
 from quiz_app.extentions import db
 
 
