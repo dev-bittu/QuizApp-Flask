@@ -19,26 +19,27 @@ To run this project, you need to have the following installed:
 
 ## Setup in Linux
 1. Clone the repository using the following command:
-   
-   git clone https://github.com/your-username/interactive-learning-platform.git
-   
+```bash
+git clone https://github.com/Dev-Bittu/QuizApp-Flask.git
+```
 2. Install Python and Git (if not already installed) using the following command:
-   
-   sudo apt install python git
-   
+```bash
+sudo apt install python3 git -y
+```
 3. Navigate to the project directory using the following command:
-   
-   cd interactive-learning-platform
-   
+```bash
+cd QuizApp-Flask
+```
 4. Install the required packages using pip:
-   
-   pip install -r requirements.txt
-   
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 1. Start the Flask development server using the following command:
-   
-   flask run
+```bash
+flask run
+```
    
 2. Open your web browser and navigate to http://localhost:5000.
 3. Sign up for an account on the platform.
@@ -50,8 +51,8 @@ To run this project, you need to have the following installed:
 ## Author
 - Dev-Bittu
 
-## Contact
-If you have any questions or suggestions, feel free to reach out to us at [email protected].
+### Contact With Us
+  - [GitHub](https://github.com/Dev-Bittu "Dev-Bittu")
 
 ## ToDo
 - Add search functionality for questions and quizzes.
@@ -59,4 +60,4 @@ If you have any questions or suggestions, feel free to reach out to us at [email
 - Integrate with social media platforms for easy sharing.
 
 ## License
-This project is licensed under the [MIT License](https://github.com/Dev-Bittu/QuizApp-Flask/LICENSE).
+This project is licensed under the [MIT License](LICENSE "License File").
