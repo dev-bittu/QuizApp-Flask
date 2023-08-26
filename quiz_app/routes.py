@@ -164,8 +164,3 @@ def admin():
     else:
         flash("You are not an admin, so you can't access this portal", "warning")
         return redirect(url_for('main.index'))
-
-@main.route('/favicon.ico')
-def favicon():
-    print("fkkfjd")
-    return url_for('static', filename='image/favicon.ico')
