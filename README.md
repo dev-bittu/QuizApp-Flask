@@ -1,4 +1,4 @@
-# Interactive Learning Platform
+# QuizApp-Flask
 
 ## Introduction
 Welcome to our interactive learning platform! This platform is designed to provide students with a collaborative and engaging learning environment. Students can interact with their peers by adding questions and quizzes, challenging and expanding their knowledge.
@@ -40,13 +40,10 @@ pip install -r requirements.txt
 ```bash
 flask run
 ```
-   
 2. Open your web browser and navigate to http://localhost:5000.
 3. Sign up for an account on the platform.
-4. Explore the different subjects and topics available.
-5. Create your own questions and quizzes or answer existing ones.
-6. Engage with other students by commenting on their questions and quizzes.
-7. Track your progress and see how your knowledge expands over time.
+4. Create your own questions and quizzes or answer existing ones.
+5. Track your progress and see how your knowledge expands over time.
 
 ## Author
 - Dev-Bittu
@@ -57,7 +54,7 @@ flask run
 ## ToDo
 - Add search functionality for questions and quizzes.
 - Implement a leaderboard to track top performers.
-- Integrate with social media platforms for easy sharing.
+- Show which question you got right, wrong, and which question you didn't.
 
 ## License
 This project is licensed under the [MIT License](LICENSE "License File").
