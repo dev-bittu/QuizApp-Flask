@@ -1,15 +1,16 @@
 {% extends 'layout.html' %}
 
-{% block title %}Result{% endblock %}
+{% block title %}Leaderboard{% endblock %}
 
 {% block body %}
-  <h1 class="text-center">
-    Result
-  </h1>
+<div class="row">
+  <h1 class="text-center">Leaderboard</h1>
+</div>
+<div class="row">
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Rank</th>
       <th scope="col">Name</th>
       <th scope="col">Total Questions</th>
       <th scope="col">Not Attempt</th>
@@ -21,8 +22,8 @@
   <tbody>
     {% for result in results %}
     <tr>
-      <th scope="row">{{ result.id }}</th>
-      <td>{{ user.name }}</td>
+      <th scope="row">{{ loop.index }}</th>
+      <td>{{ result.user.name }}</td>
       <td>{{ result.total_number }}</td>
       <td>{{ result.not_attempt }}</td>
       <td>{{ result.correct }}</td>
@@ -32,4 +33,5 @@
     {% endfor %}
   </tbody>
 </table>
+</div>
 {% endblock %}

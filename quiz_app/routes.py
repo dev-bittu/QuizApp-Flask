@@ -28,7 +28,6 @@ def login():
     if not current_user.is_anonymous:
         flash("You are already logged in, logout to login with another account", "info")
         return redirect(url_for("main.index"))
-
     if request.method == "POST":
         data = request.form.to_dict()
         user = models.User.query.filter_by(
@@ -58,14 +57,17 @@ def register():
     if not current_user.is_anonymous:
         flash("You are already logged in, logout to login with another account", "info")
         return redirect(url_for('main.index'))
-
     if request.method == "POST":
         data = request.form.to_dict()
         name = data["name"]
         password = data["password"]
+        if models.User.query.filter_by(name=name).first() is not None:
+            flash("user with this username already exists", "info")
+            return redirect(url_for("main.register"))
         user = models.User(
             name=name,
-            password=password
+            password=password,
+            is_admin=False
         )
         db.session.add(user)
         db.session.commit()
@@ -93,7 +95,11 @@ def add_questions():
             db.session.commit()
         else:
             flash("your questions added successfully", "success")
-    return render("add_questions.html", questions=ADD_QUESTIONS)
+    return render(
+        "add_questions.html",
+        questions=ADD_QUESTIONS,
+        show=True if models.Question.query.filter_by(creator_id=current_user.id).first() is None else False
+    )
 
 
 @main.route("/quiz", methods=["GET", "POST"])
@@ -156,6 +162,14 @@ def result():
             ), user=current_user
         )
 
+
+@main.route("/leaderboard")
+@login_required
+def leaderboard():
+    res = models.Result.query.order_by(
+        models.Result.correct.desc()
+    ).limit(5).all()
+    return render("leaderboard.html", results=res)
 
 
 @main.route("/admin")
