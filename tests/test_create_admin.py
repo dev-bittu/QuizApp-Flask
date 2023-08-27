@@ -1,12 +1,16 @@
 from quiz_app.models import User
 from app import app
 from quiz_app.extentions import db
+from pytest import mark
 
 
-name = "admin"  # Username of administrator
-password = "Dev-Bittu@admin"  # Password for administrator
-
-def test_create_admin():
+@mark.parametrize(
+    "name,password",
+    [
+        ("admin", "DevBittu@admin")
+    ]
+)
+def test_create_admin(name, password):
     with app.app_context():
         u = User.query.filter_by(
             name=name
