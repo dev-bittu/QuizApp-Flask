@@ -16,7 +16,6 @@ To run this project, you need to have the following installed:
 - Flask
 - Flask-SQLAlchemy
 - Flask-Login
-- pytest (for unit testing)
 
 ## Setup in Linux
 1. Install Python and Git (if not already installed) using the following command:
