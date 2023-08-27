@@ -28,6 +28,7 @@ def login():
     if not current_user.is_anonymous:
         flash("You are already logged in, logout to login with another account", "info")
         return redirect(url_for("main.index"))
+
     if request.method == "POST":
         data = request.form.to_dict()
         user = models.User.query.filter_by(
@@ -43,6 +44,7 @@ def login():
             flash("user's name or password is wrong", "warning")
     return render("login.html")
 
+
 @main.route("/logout")
 @login_required
 def logout():
@@ -56,6 +58,7 @@ def register():
     if not current_user.is_anonymous:
         flash("You are already logged in, logout to login with another account", "info")
         return redirect(url_for('main.index'))
+
     if request.method == "POST":
         data = request.form.to_dict()
         name = data["name"]
@@ -69,6 +72,7 @@ def register():
         flash("register complete", "success")
         return redirect(url_for("main.login"))
     return render("register.html")
+
 
 @main.route("/add", methods=["GET", "POST"])
 @login_required
@@ -90,6 +94,7 @@ def add_questions():
         else:
             flash("your questions added successfully", "success")
     return render("add_questions.html", questions=ADD_QUESTIONS)
+
 
 @main.route("/quiz", methods=["GET", "POST"])
 @login_required
@@ -126,6 +131,7 @@ def quiz():
         show=True if models.Result.query.filter_by(user_id=current_user.id).first() is None else False
     )
 
+
 @main.route("/result")
 @login_required
 def result():
@@ -149,6 +155,7 @@ def result():
                 not_attempt=0
             ), user=current_user
         )
+
 
 
 @main.route("/admin")
