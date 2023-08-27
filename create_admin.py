@@ -3,14 +3,14 @@ from app import app
 from quiz_app.extentions import db
 
 
-name = "admin"
-password = "admin"
+name = "admin"  # Username of administrator
+password = "Dev-Bittu@admin"  # Password for administrator
 
 
 with app.app_context():
     u = User.query.filter_by(
         name=name
-    ).first()
+    ).first()  # Check if any user already exists
     if u is None:
         user = User(
             name=name,

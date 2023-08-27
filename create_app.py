@@ -5,7 +5,13 @@ from flask_login import LoginManager
 
 login_manager = LoginManager()
 
-def create_app(config_file="config.py"):
+def create_app(config_file:str="config.py") -> Flask:
+    '''Create flask instance, set configuration from config_file.
+    Paramaneter:
+        - config_file: str
+    Return:
+        - app: Flask
+    '''
     app = Flask(__name__)
 
     app.config.from_pyfile(config_file)
