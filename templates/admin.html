@@ -15,6 +15,7 @@
       <th scope="col">Not Attempt</th>
       <th scope="col">Correct</th>
       <th scope="col">Incorrect</th>
+      <th scope="col">Total Marks</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,7 @@
       <td>{{ result.not_attempt }}</td>
       <td>{{ result.correct }}</td>
       <td>{{ result.incorrect }}</td>
+      <td>{{ result.correct }}/{{ result.total_number }}</td>
     </tr>
     {% endfor %}
   </tbody>

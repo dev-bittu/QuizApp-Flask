@@ -18,12 +18,12 @@ class User(UserMixin, db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Text, unique=True)
+    question = db.Column(db.Text, unique=True, nullable=False)
     option1 = db.Column(db.String, nullable=False)
     option2 = db.Column(db.String, nullable=False)
     option3 = db.Column(db.String, nullable=False)
     option4 = db.Column(db.String, nullable=False)
-    correct_option = db.Column(db.CHAR)
+    correct_option = db.Column(db.CHAR, nullable=False)
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
