@@ -30,24 +30,17 @@ def login():
         return redirect(url_for("main.index"))
     if request.method == "POST":
         data = request.form.to_dict()
-        if "is_admin" in data.keys():
-            user = models.User.query.filter_by(
-                name=data["name"],
-                password=data["password"],
-                is_admin=True
-            ).first()
-        else:
-            user = models.User.query.filter_by(
-                name=data["name"],
-                password=data["password"],
-                is_admin=False
-            ).first()
+        user = models.User.query.filter_by(
+            name=data["name"],
+            password=data["password"],
+            is_admin=True if "is_admin" in data.keys() else False
+        ).first()
         if user is not None:
             login_user(user)
             flash("logged in successfully", "success")
             return redirect(url_for("main.index"))
         else:
-            flash("User's name or password is wrong", "warning")
+            flash("user's name or password is wrong", "warning")
     return render("login.html")
 
 @main.route("/logout")
@@ -67,7 +60,10 @@ def register():
         data = request.form.to_dict()
         name = data["name"]
         password = data["password"]
-        user = models.User(name=name, password=password)
+        user = models.User(
+            name=name,
+            password=password
+        )
         db.session.add(user)
         db.session.commit()
         flash("register complete", "success")
