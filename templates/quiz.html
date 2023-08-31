@@ -5,33 +5,33 @@
    <h1 class="text-center">
       Quiz
    </h1>
-   {% for q, i in zip(questions, range(1, questions|length+1)) %}
+   {% for q in questions %}
   <div class="card border-info">
-     <div class="card-header bg-info text-white">Question {{ i }}</div>
+     <div class="card-header bg-info text-white">Question {{loop.index}}</div>
    <div class="card-body">
       <h5>{{ q.question }}</h5>
-      <input type="hidden" name="q{{i}}" value="{{q.id}}">
+      <input type="hidden" name="q{{loop.index}}" value="{{q.id}}">
       <div class="form-check">
-         <input class="form-check-input" type="radio" name="q{{i}}o" id="q{{i}}o1" value="A">
-         <label class="form-check-label" for="q{{i}}o1">
+         <input class="form-check-input" type="radio" name="q{{loop.index}}o" id="q{{loop.index}}o1" value="A">
+         <label class="form-check-label" for="q{{loop.index}}o1">
             {{ q.option1 }}
          </label>
       </div>
       <div class="form-check">
-         <input class="form-check-input" type="radio" name="q{{i}}o" id="q{{i}}o2" value="B">
-         <label class="form-check-label" for="q{{i}}o2">
+         <input class="form-check-input" type="radio" name="q{{loop.index}}o" id="q{{loop.index}}o2" value="B">
+         <label class="form-check-label" for="q{{loop.index}}o2">
             {{ q.option2 }}
          </label>
       </div>
       <div class="form-check">
-         <input class="form-check-input" type="radio" name="q{{i}}o" id="q{{i}}o3" value="C">
-         <label class="form-check-label" for="q{{i}}o3">
+         <input class="form-check-input" type="radio" name="q{{loop.index}}o" id="q{{loop.index}}o3" value="C">
+         <label class="form-check-label" for="q{{loop.index}}o3">
             {{ q.option3 }}
          </label>
       </div>
       <div class="form-check">
-         <input class="form-check-input" type="radio" name="q{{i}}o" id="q{{i}}o4" value="D">
-         <label class="form-check-label" for="q{{i}}o4">
+         <input class="form-check-input" type="radio" name="q{{loop.index}}o" id="q{{loop.index}}o4" value="D">
+         <label class="form-check-label" for="q{{loop.index}}o4">
             {{ q.option3 }}
          </label>
       </div>
