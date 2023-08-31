@@ -14,7 +14,7 @@ from flask_login import (
     login_user,
     current_user
 )
-
+from random import shuffle
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -130,10 +130,11 @@ def quiz():
         db.session.commit()
         flash("quiz complete", "success")
         return redirect(url_for("main.result"))
+    questions = models.Question.query.all()
+    shuffle(questions)
     return render(
         "quiz.html",
-        questions=models.Question.query.all(),
-        zip=zip,
+        questions=questions,
         show=True if models.Result.query.filter_by(user_id=current_user.id).first() is None else False
     )
 
