@@ -14,7 +14,7 @@ def create_user(name: str="bittu", password: str="devbittu", is_admin: bool=Fals
     with app.app_context():
         u = User.query.filter_by(
             name=name
-        )
+        ).first()
         if u is not None:
             print(f"User with name '{name}' already exists")
             return
@@ -49,4 +49,4 @@ def create_user_bulk(users: list):
 
 if __name__ == "__main__":
     create_user("admin", "devbittu")
-    create_user_bulk()
+    #create_user_bulk()
