@@ -41,7 +41,7 @@ def create_user_bulk(users: list):
     Return:
       - None
     Example:
-      >>> users = [{"name": "bittu", "password": "devbittu"}, {"name": "anyuser", "password": "mypassword"}]
+      >>> users = [{"id": 1, "name": "bittu", "password": "devbittu"}, {"name": "anyuser", "password": "mypassword"}]
       >>> create_user_bulk(users)
     '''
     with app.app_context():
