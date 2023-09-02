@@ -53,5 +53,5 @@ def create_user_bulk(users: list):
                 print(f"Error, while adding user {user}\n{e}")
 
 if __name__ == "__main__":
-    create_user("admin", "devbittu")
+    create_user("admin", "devbittu", is_admin=True)
     #create_user_bulk()
