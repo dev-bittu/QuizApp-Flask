@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+  <h1 class="text-center">
+    Results
+  </h1>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Total Questions</th>
+      <th scope="col">Not Attempt</th>
+      <th scope="col">Correct</th>
+      <th scope="col">Incorrect</th>
+      <th scope="col">Total Marks</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for result in results %}
+    <tr>
+      <th scope="row">{{ result.user.id }}</th>
+      <td>{{ result.user.name }}</td>
+      <td>{{ result.total_number }}</td>
+      <td>{{ result.not_attempt }}</td>
+      <td>{{ result.correct }}</td>
+      <td>{{ result.incorrect }}</td>
+      <td>{{ result.correct }}/{{ result.total_number }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
