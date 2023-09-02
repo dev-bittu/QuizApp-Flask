@@ -22,20 +22,20 @@ def load_questions(file) -> dict:
     qbank = qbank[1:]
 
     for row in qbank:
-        student_id, data = row[2], row[3:]
+        roll_no, data = row[2], row[4:]
         total_questions = len(data) // 3
         qs = []
         for i in range(0, len(data), 3):
             q, o, co = data[i], data[i+1].split("\n"), data[i+2]
             if (n:=len(o)) != 4:
-                print(f"\ninstead of filling 4 option {student_id} has filled {n} options.!!!\n".upper())
+                print(f"\ninstead of filling 4 option RollNo:{roll_no} has filled {n} options.!!!\n".upper())
             else:
                 qs.append({
                     "q": q,
                     "o": tuple(o),
                     "co": co
                 })
-        questions = questions | {student_id: qs}
+        questions = questions | {roll_no: qs}
 
     return questions 
 
