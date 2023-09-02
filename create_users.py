@@ -1,6 +1,6 @@
 from quiz_app.models import User
 from app import app
-
+from quiz_app.extentions import db
 
 def create_user(name: str="bittu", password: str="devbittu", is_admin: bool=False):
     '''Create user
