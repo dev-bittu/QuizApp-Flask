@@ -177,8 +177,17 @@ def leaderboard():
 @login_required
 def admin():
     if current_user.is_admin:
+        return render("admin.html")
+    else:
+        flash("You are not an admin, so you can't access this")
+        return redirect(url_for("main.index"))
+
+@main.route("/admin/results")
+@login_required
+def admin_result():
+    if current_user.is_admin:
         res = models.Result.query.all()
-        return render("admin.html", results=res)
+        return render("admin_result.html", results=res)
     else:
         flash("You are not an admin, so you can't access this portal", "warning")
         return redirect(url_for('main.index'))
