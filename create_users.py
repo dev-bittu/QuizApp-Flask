@@ -2,7 +2,7 @@ from quiz_app.models import User
 from app import app
 from quiz_app.extentions import db
 
-def create_user(name: str="bittu", password: str="devbittu", is_admin: bool=False):
+def create_user(name: str = "bittu", id: int = None, password: str = "devbittu", is_admin: bool = False):
     '''Create user
     Parameter:
       - name: str = "bittu"
@@ -20,6 +20,11 @@ def create_user(name: str="bittu", password: str="devbittu", is_admin: bool=Fals
             return
         else:
             user = User(
+                id=id,
+                name=name,
+                password=password,
+                is_admin=is_admin
+            ) if id is None else User(
                 name=name,
                 password=password,
                 is_admin=is_admin
