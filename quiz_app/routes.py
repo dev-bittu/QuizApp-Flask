@@ -15,6 +15,8 @@ from flask_login import (
     current_user
 )
 from random import shuffle
+from werkzeug.utils import secure_filename
+
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -179,15 +181,51 @@ def admin():
     if current_user.is_admin:
         return render("admin.html")
     else:
-        flash("You are not an admin, so you can't access this")
+        flash("You are not an admin, so you can't access this", "warning")
         return redirect(url_for("main.index"))
 
 @main.route("/admin/results")
 @login_required
-def admin_result():
+def admin_results():
     if current_user.is_admin:
         res = models.Result.query.all()
         return render("admin_result.html", results=res)
     else:
         flash("You are not an admin, so you can't access this portal", "warning")
         return redirect(url_for('main.index'))
+
+@main.route("/admin/add", methods=["GET", "POST"])
+@login_required
+def admin_add_questions():
+    if current_user.is_admin:
+        if request.method == "POST":
+            pass
+        qs = models.Question.query.filter_by(
+            verified=False
+        )
+        return render("admin_add_questions.html", questions=qs)
+    else:
+        flash("You are not an admin, so you can't access this page", "warning")
+        return redirect(url_for("main.index"))
+
+@main.route("/admin/upload", methods=["GET", "POST"])
+@login_required
+def admin_upload_questions():
+    if current_user.is_admin:
+        if request.method == "POST":
+            if 'qFile' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['qFile']
+            if (fname:=file.filename) == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and ('.' in fname and fname.rsplit('.', 1)[1].lower() in ["csv"]):
+                filename = secure_filename(fname)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                flash("file added successfully", "success")
+
+        return render("admin_upload_questions.html")
+    else:
+        flash("You are not an admin, so you can't access this page", "warning")
+        return redirect(url_for("main.index"))
