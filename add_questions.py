@@ -74,6 +74,6 @@ def add_to_db(qbank: dict, verbose: bool = True) -> int:
     return questions_added
 
 if __name__ == "__main__":
-    qbank = load_questions("questions.csv")
+    qbank = load_questions("upload_files/questions.csv")
     q_added = add_to_db(qbank)
     print(f"\nQuestion Added: {q_added}")

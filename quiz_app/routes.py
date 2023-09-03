@@ -16,7 +16,8 @@ from flask_login import (
 )
 from random import shuffle
 from werkzeug.utils import secure_filename
-from os.path import join
+from os.path import join, dirname
+from os import system
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -227,9 +228,11 @@ def admin_upload_questions():
                 flash('No selected file')
                 return redirect(request.url)
             if file and ('.' in fname and fname.rsplit('.', 1)[1].lower() in ["csv"]):
-                filename = secure_filename(fname)
-                file.save(join(app.config['UPLOAD_FOLDER'], filename))
-                flash("file added successfully", "success")
+                flocation = join(dirname(__file__), "..", "upload_files", "questions.csv")
+                file.save(flocation)
+                script = join(dirname(flocation), "..", "add_questions.py")
+                system(f"python3 {script}")
+                flash("questions added successfully", "success")
 
         return render("admin/upload_questions.html")
     else:
