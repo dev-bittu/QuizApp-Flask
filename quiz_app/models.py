@@ -24,6 +24,7 @@ class Question(db.Model):
     option3 = db.Column(db.String, nullable=False)
     option4 = db.Column(db.String, nullable=False)
     correct_option = db.Column(db.CHAR, nullable=False)
+    verified = db.Column(db.Boolean, nullable=False, default=False)
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
