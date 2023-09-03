@@ -109,7 +109,7 @@ def add_questions():
 def quiz():
     if request.method == "POST":
         data = request.form.to_dict()
-        total_questions = len(models.Question.query.all())
+        total_questions = len(models.Question.query.filter_by(verified=True).all())
         result = models.Result(
             total_number=total_questions,
             correct=0,
