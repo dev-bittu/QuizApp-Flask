@@ -132,7 +132,7 @@ def quiz():
         db.session.commit()
         flash("quiz complete", "success")
         return redirect(url_for("main.result"))
-    questions = models.Question.query.all()
+    questions = models.Question.query.filter_by(verified=True).all()
     shuffle(questions)
     return render(
         "quiz.html",
@@ -199,10 +199,14 @@ def admin_results():
 def admin_add_questions():
     if current_user.is_admin:
         if request.method == "POST":
-            pass
-        qs = models.Question.query.filter_by(
-            verified=False
-        )
+            data = request.form
+            for i in data:
+                if data[i] == "on":
+                    qno = int(i[1:])
+                    q = models.Question.query.filter_by(id=qno).first()
+                    q.verified = True
+                    db.session.commit()
+        qs = models.Question.query.filter_by(verified=False).all()
         return render("admin_add_questions.html", questions=qs)
     else:
         flash("You are not an admin, so you can't access this page", "warning")

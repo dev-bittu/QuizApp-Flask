@@ -1,4 +1,4 @@
-from utils.create_app import create_app, login_manager
+from create_app import create_app, login_manager
 from quiz_app.models import User
 
 @login_manager.user_loader

@@ -22,7 +22,7 @@ def load_questions(file) -> dict:
     qbank = qbank[1:]
 
     for row in qbank:
-        roll_no, data = row[2], row[4:]
+        roll_no, data = row[3], row[4:]
         total_questions = len(data) // 3
         qs = []
         for i in range(0, len(data), 3):
@@ -40,13 +40,15 @@ def load_questions(file) -> dict:
     return questions 
 
 
-def add_to_db(qbank: dict):
+def add_to_db(qbank: dict) -> int:
     '''Add questions to db
     Argument:
         qbank: dict - question bank
     Return:
-        None
+        questions_added: int
     '''
+    questions_added = 0
+    
     with app.app_context():
         for id, qs in qbank.items():
             u = User.query.filter_by(id=id).first()
@@ -62,11 +64,14 @@ def add_to_db(qbank: dict):
                         creator_id=u.id
                     )
                     db.session.add(q)
-                    print(q)
+                    questions_added += 1
+                    print(f"Total Questions Added: {questions_added}", end="\r")
             else:
                 print(f"\nuser doesn't exists with id {id}\n".upper())
             db.session.commit()
+    return questions_added
 
 if __name__ == "__main__":
     qbank = load_questions("questions.csv")
-    add_to_db(qbank)
+    q_added = add_to_db(qbank)
+    print(f"\nQuestion Added: {q_added}")
