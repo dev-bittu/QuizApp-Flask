@@ -9,7 +9,7 @@
   </h1>
 </div>
 <div class="row mt-3">
-  <form action="{{ url_for('main.admin_upload_questions') }}" method="post">
+  <form action="{{ url_for('main.admin_upload_questions') }}" method="post" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="formFile" class="form-label">Upload CSV File.</label>
       <input class="form-control" type="file" accept=".csv" id="formFile" name="qFile" required>
