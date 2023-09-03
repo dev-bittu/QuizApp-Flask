@@ -40,7 +40,7 @@ def load_questions(file) -> dict:
     return questions 
 
 
-def add_to_db(qbank: dict) -> int:
+def add_to_db(qbank: dict, verbose: bool = True) -> int:
     '''Add questions to db
     Argument:
         qbank: dict - question bank
@@ -65,9 +65,11 @@ def add_to_db(qbank: dict) -> int:
                     )
                     db.session.add(q)
                     questions_added += 1
-                    print(f"Total Questions Added: {questions_added}", end="\r")
+                    if verbose:
+                        print(f"Total Questions Added: {questions_added}", end="\r")
             else:
-                print(f"\nuser doesn't exists with id {id}\n".upper())
+                if verbose:
+                    print(f"\nuser doesn't exists with id {id}\n".upper())
             db.session.commit()
     return questions_added
 

@@ -16,7 +16,7 @@ from flask_login import (
 )
 from random import shuffle
 from werkzeug.utils import secure_filename
-
+from os.path import join
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -179,7 +179,7 @@ def leaderboard():
 @login_required
 def admin():
     if current_user.is_admin:
-        return render("admin.html")
+        return render("admin/admin.html")
     else:
         flash("You are not an admin, so you can't access this", "warning")
         return redirect(url_for("main.index"))
@@ -189,25 +189,27 @@ def admin():
 def admin_results():
     if current_user.is_admin:
         res = models.Result.query.all()
-        return render("admin_result.html", results=res)
+        return render("admin/result.html", results=res)
     else:
         flash("You are not an admin, so you can't access this portal", "warning")
         return redirect(url_for('main.index'))
 
-@main.route("/admin/add", methods=["GET", "POST"])
+@main.route("/admin/add-questions", methods=["GET", "POST"])
 @login_required
 def admin_add_questions():
     if current_user.is_admin:
         if request.method == "POST":
-            data = request.form
+            data, changed = request.form, 0
             for i in data:
                 if data[i] == "on":
                     qno = int(i[1:])
                     q = models.Question.query.filter_by(id=qno).first()
                     q.verified = True
                     db.session.commit()
+                    changed += 1
+            flash(f"{changed} questions added.", "success")
         qs = models.Question.query.filter_by(verified=False).all()
-        return render("admin_add_questions.html", questions=qs)
+        return render("admin/add_questions.html", questions=qs)
     else:
         flash("You are not an admin, so you can't access this page", "warning")
         return redirect(url_for("main.index"))
@@ -226,10 +228,10 @@ def admin_upload_questions():
                 return redirect(request.url)
             if file and ('.' in fname and fname.rsplit('.', 1)[1].lower() in ["csv"]):
                 filename = secure_filename(fname)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                file.save(join(app.config['UPLOAD_FOLDER'], filename))
                 flash("file added successfully", "success")
 
-        return render("admin_upload_questions.html")
+        return render("admin/upload_questions.html")
     else:
         flash("You are not an admin, so you can't access this page", "warning")
         return redirect(url_for("main.index"))
