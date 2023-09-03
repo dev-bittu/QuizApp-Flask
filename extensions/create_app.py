@@ -14,6 +14,7 @@ def create_app(config_file:str="config.py") -> Flask:
     '''
     app = Flask(__name__)
 
+    app.config["UPLOAD_FOLDER"] = "upload_files"
     app.config.from_pyfile(config_file)
     app.register_blueprint(main)
     db.init_app(app)
