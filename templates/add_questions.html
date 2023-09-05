@@ -43,11 +43,7 @@
     <label class="form-check-label" for="exampleCheck1">I confirmed.</label>
   </div>
   <br><br><br>
-  {% if show %}
-    <button type="submit" class="btn btn-primary w-100">Submit</button>
-  {% else %}
-    <button type="submit" class="btn btn-primary w-100" onclick="question_already_added(); return false">Submit</button>
-  {% endif %}
+  <button type="submit" class="btn btn-primary w-100" {% if not show %}onclick="question_already_added(); return false"{% endif %}>Submit</button>
 </form>
 <script>
   const question_already_added = () => {

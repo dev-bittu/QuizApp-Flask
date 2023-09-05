@@ -45,11 +45,7 @@
     <label class="form-check-label" for="exampleCheck1">I confirmed.</label>
   </div>
   <br>
-  {% if show %}
-    <button type="submit" class="btn btn-primary w-100">Submit</button>
-  {% else %}
-    <button type="submit" class="btn btn-primary w-100" onclick="quiz_complete(); return false;">Submit</button>
-  {% endif %}
+  <button type="submit" class="btn btn-primary w-100" {% if not show %}onclick="quiz_complete(); return false;"{% endif %}>Submit</button>
 </form>
 <script>
    const quiz_complete = () => {
