@@ -1,10 +1,7 @@
 from csv import reader
-from quiz_app.extentions import db
 from quiz_app.models import *
-from app import app
 
-
-def load_questions(file) -> dict:
+def load_questions(file, verbose: bool = True) -> dict:
     '''Load questions from csv file and serialize them
     Argument:
         file - csv_file
@@ -28,7 +25,8 @@ def load_questions(file) -> dict:
         for i in range(0, len(data), 3):
             q, o, co = data[i], data[i+1].split("\n"), data[i+2]
             if (n:=len(o)) != 4:
-                print(f"\ninstead of filling 4 option RollNo:{roll_no} has filled {n} options.!!!\n".upper())
+                if verbose:
+                    print(f"\ninstead of filling 4 option RollNo:{roll_no} has filled {n} options.!!!\n".upper())
             else:
                 qs.append({
                     "q": q,
@@ -40,7 +38,7 @@ def load_questions(file) -> dict:
     return questions 
 
 
-def add_to_db(qbank: dict, verbose: bool = True) -> int:
+def add_to_db(qbank: dict, app, db, verbose: bool = True) -> int:
     '''Add questions to db
     Argument:
         qbank: dict - question bank
@@ -74,6 +72,15 @@ def add_to_db(qbank: dict, verbose: bool = True) -> int:
     return questions_added
 
 if __name__ == "__main__":
+    from app import app
+    from quiz_app.extentions import db
+    from quiz_app.models import *
+
     qbank = load_questions("upload_files/questions.csv")
-    q_added = add_to_db(qbank)
+    print(qbank)
+    q_added = add_to_db(
+        qbank=qbank,
+        app=app,
+        db=db
+    )
     print(f"\nQuestion Added: {q_added}")
