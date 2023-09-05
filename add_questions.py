@@ -77,7 +77,6 @@ if __name__ == "__main__":
     from quiz_app.models import *
 
     qbank = load_questions("upload_files/questions.csv")
-    print(qbank)
     q_added = add_to_db(
         qbank=qbank,
         app=app,

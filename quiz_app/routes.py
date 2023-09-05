@@ -17,7 +17,10 @@ from flask_login import (
 from random import shuffle
 from werkzeug.utils import secure_filename
 from os.path import join, dirname
-from os import system
+from add_questions import (
+    load_questions,
+    add_to_db
+)
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -230,9 +233,15 @@ def admin_upload_questions():
             if file and ('.' in fname and fname.rsplit('.', 1)[1].lower() in ["csv"]):
                 flocation = join(dirname(__file__), "..", "upload_files", "questions.csv")
                 file.save(flocation)
-                script = join(dirname(flocation), "..", "add_questions.py")
-                system(f"python3 {script}")
-                flash("questions added successfully", "success")
+                csv_file = join(dirname(flocation), "..", "add_questions.py")
+                qbank = load_questions(csv_file)
+                q_added = add_to_db(
+                    qbank=qbank,
+                    app=main,
+                    db=db,
+                    verbose=False
+                )
+                flash(f"{q_added} questions added successfully", "success")
 
         return render("admin/upload_questions.html")
     else:
