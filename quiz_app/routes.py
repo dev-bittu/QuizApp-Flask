@@ -21,6 +21,7 @@ from add_questions import (
     load_questions,
     add_to_db
 )
+from flask import current_app
 
 main = Blueprint("main", __name__)
 ADD_QUESTIONS = 3
@@ -236,7 +237,7 @@ def admin_upload_questions():
                 qbank = load_questions(flocation)
                 q_added = add_to_db(
                     qbank=qbank,
-                    app=main,
+                    app=current_app,
                     db=db,
                     verbose=False
                 )
