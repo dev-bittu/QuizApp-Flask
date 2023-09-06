@@ -233,8 +233,7 @@ def admin_upload_questions():
             if file and ('.' in fname and fname.rsplit('.', 1)[1].lower() in ["csv"]):
                 flocation = join(dirname(__file__), "..", "upload_files", "questions.csv")
                 file.save(flocation)
-                csv_file = join(dirname(flocation), "..", "add_questions.py")
-                qbank = load_questions(csv_file)
+                qbank = load_questions(flocation)
                 q_added = add_to_db(
                     qbank=qbank,
                     app=main,
