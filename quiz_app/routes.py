@@ -277,3 +277,47 @@ def admin_create_set():
     else:
         flash("You are not an admin, so you can't access this page", "warning")
         return redirect(url_for("main.index"))
+
+@main.route("/admin/show_sets")
+@login_required
+def admin_show_sets():
+    if current_user.is_admin:
+        return render(
+            "admin/show_sets.html",
+            sets = models.QuestionSet.query.all()
+        )
+    else:
+        flash("You are not an admin, so you can't access this page", "warning")
+        return redirect(url_for("main.index"))
+
+@main.route("/admin/distribute_sets", methods=["GET", "POST"])
+@login_required
+def admin_distribute_sets():
+    if current_user.is_admin:
+        if request.method == "POST":
+            data, changed = request.form.to_dict(), 0
+            qset = models.QuestionSet.query.filter_by(
+                id = int(data.get("set", 0))
+            ).first()
+            del data["set"]
+            for i, j in data.items():
+                if j == "on":
+                    u = models.User.query.filter_by(
+                        id=int(i[1:])
+                    ).first()
+                    u.question_set = qset.id
+                    db.session.commit()
+                    changed += 1
+            flash(f"question papers set distributed to {changed} students", "success")
+            
+        return render(
+            "admin/distribute_sets.html",
+            sets = models.QuestionSet.query.all(),
+            users = models.User.query.filter_by(
+                question_set = None,
+                is_admin=False
+            ).all()
+        )
+    else:
+        flash("You are not an admin, so you can't access this page", "warning")
+        return redirect(url_for("main.index"))

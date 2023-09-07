@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block title %}Show SETs{% endblock %}
+{% block body %}
+<h1 class="text-center">
+  Show SETs
+</h1>
+<div class="accordion" id="accordionExample">
+  {% for set in sets %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{set.id}}" aria-expanded="true" aria-controls="collapse{{set.id}}">
+        {{ set.id }}. {{ set.name }}
+      </button>
+    </h2>
+    <div id="collapse{{set.id}}" class="accordion-collapse collapse show overflow-x-scroll" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Questions</th>
+              <th scope="col">Option1</th>
+              <th scope="col">Option2</th>
+              <th scope="col">Option3</th>
+              <th scope="col">Option4</th>
+              <th scope="col">Correct Option</th>
+              <th scope="col">Creator</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for q in set.questions %}
+            <tr>
+              <th scope="row">{{ q.id }}</th>
+              <th>{{ q.question }}</th>
+              <th>{{ q.option1 }}</th>
+              <th>{{ q.option2 }}</th>
+              <th>{{ q.option3 }}</th>
+              <th>{{ q.option4 }}</th>
+              <th>{{ q.correct_option }}</th>
+              <th>{{ q.creator.name }}</th>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

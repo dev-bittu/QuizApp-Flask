@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %}Distribute SETs{% endblock %}
+
+{% block body %}
+  <h1 class="text-center">
+    Distribute SETs
+  </h1>
+  <form action="{{ url_for('main.admin_distribute_sets') }}" method="post">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onchange="checkAll(this)">
+          <label class="form-check-label" for="flexCheckDefault">
+            Select All
+          </label>
+          </div>
+      </th>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <th scope="row">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="u{{user.id}}">
+        </div>
+      </th>
+      <th>{{ user.id }}</th>
+      <th>{{ user.name }}</th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<select class="form-select" name="set" required>
+    <option selected disabled value=''>Choose SET (to be distributed)</option>
+    {% for set in sets %}
+    <option value="{{ set.id }}">{{ set.name }}</option>
+    {% endfor %}
+  </select>
+<br>
+<button type="submit" class="btn btn-primary w-100">
+  Distribute
+</button>
+</form>
+<script>
+  let checkboxes = document.querySelectorAll("input[type = 'checkbox']");
+  const checkAll = (myCheckBox)=>{
+    let chkd = myCheckBox.checked;
+    checkboxes.forEach((checkboxe)=>{
+      checkboxe.checked = chkd;
+    });
+  };
+</script>
+{% endblock %}
