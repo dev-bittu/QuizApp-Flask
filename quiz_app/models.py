@@ -2,17 +2,6 @@ from .extentions import db
 from datetime import datetime
 from flask_login import UserMixin
 
-'''
-class QuestionSet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=True)
-    questions = db.relationship("Question", backref="qset")
-    user_id = db.relationship("User", backref="users")
-
-    def __repr__(self):
-        return f"QuestionSet({self.id}, {[i.id for i in self.questions]})"
-'''
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
