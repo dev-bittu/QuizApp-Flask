@@ -2,6 +2,16 @@ from .extentions import db
 from datetime import datetime
 from flask_login import UserMixin
 
+'''
+class QuestionSet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=True)
+    questions = db.relationship("Question", backref="qset")
+    user_id = db.relationship("User", backref="users")
+
+    def __repr__(self):
+        return f"QuestionSet({self.id}, {[i.id for i in self.questions]})"
+'''
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +21,7 @@ class User(UserMixin, db.Model):
     questions = db.relationship("Question", backref="creator")
     is_admin = db.Column(db.Boolean, default=False)
     result = db.relationship("Result", backref="user")
+    question_set = db.Column(db.Integer, db.ForeignKey("questionset.id"), nullable=True)
 
     def __repr__(self):
         return f"User({self.id}, '{self.name}')"
@@ -26,6 +37,7 @@ class Question(db.Model):
     correct_option = db.Column(db.CHAR, nullable=False)
     verified = db.Column(db.Boolean, nullable=False, default=False)
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    question_set_id = db.Column(db.Integer, db.ForeignKey("questionset.id"), nullable=True)
 
     def __repr__(self):
         return f"Question({self.id}, '{self.question}', {self.creator})"
@@ -40,3 +52,14 @@ class Result(db.Model):
 
     def __repr__(self):
         return f"Result({self.id}, {self.correct}/{self.total_number})"
+
+class QuestionSet(db.Model):
+    __tablename__ = 'questionset'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=True)
+    questions = db.relationship("Question", backref="qset")
+    user_id = db.relationship("User", backref="users")
+
+    def __repr__(self):
+        return f"QuestionSet({self.id}, {[i.id for i in self.questions]})"
+

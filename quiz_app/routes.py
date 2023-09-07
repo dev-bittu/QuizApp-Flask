@@ -247,3 +247,33 @@ def admin_upload_questions():
     else:
         flash("You are not an admin, so you can't access this page", "warning")
         return redirect(url_for("main.index"))
+
+@main.route("/admin/create_set", methods=["GET", "POST"])
+@login_required
+def admin_create_set():
+    if current_user.is_admin:
+        if request.method == "POST":
+            data, added = request.form, 0
+            set_name = data.get("set_name", "abcd")
+            q_set = models.QuestionSet(
+                name=set_name
+            )
+            db.session.add(q_set)
+            db.session.commit()
+            for i in data:
+                if data[i] == "on":
+                    qno = int(i[1:])
+                    q = models.Question.query.filter_by(id=qno).first()
+                    q.question_set_id = q_set.id
+                    db.session.commit()
+                    added += 1
+            flash(f"{added} questions added successfully to set {q_set.name}", "success")
+        return render(
+            "admin/create_set.html", 
+            questions = models.Question.query.filter_by(
+                question_set_id = None
+            ).all()
+        )
+    else:
+        flash("You are not an admin, so you can't access this page", "warning")
+        return redirect(url_for("main.index"))
