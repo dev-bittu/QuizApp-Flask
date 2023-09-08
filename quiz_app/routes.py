@@ -193,7 +193,37 @@ def leaderboard():
 @login_required
 def admin():
     if current_user.is_admin:
-        return render("admin/admin.html")
+        # {title: {link: link_of_btn(to_be_redirected), btn_text: text}}
+        adm_options = {
+            "Get Results": {
+                "link": url_for("main.admin_results"),
+                "btn-text": "Get"
+            },
+            "Verify & Add Questions": {
+                "link": url_for("main.admin_add_questions"),
+                "btn-text": "Add"
+            },
+            "Upload Questions": {
+                "link": url_for("main.admin_upload_questions"),
+                "btn-text": "Upload"
+            },
+            "Create SETs": {
+                "link": url_for("main.admin_create_set"),
+                "btn-text": "Create"
+            },
+            "Show SETs": {
+                "link": url_for("main.admin_show_sets"),
+                "btn-text": "Show"
+            },
+            "Distribute SETs": {
+                "link": url_for("main.admin_distribute_sets"),
+                "btn-text": "Distribute"
+            }
+        }
+        return render(
+            "admin/admin.html",
+            adm_options = adm_options
+        )
     else:
         flash("You are not an admin, so you can't access this", "warning")
         return redirect(url_for("main.index"))
