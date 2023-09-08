@@ -23,31 +23,31 @@
           {% if current_user.is_authenticated %}
           {% if current_user.is_admin %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.admin') }}">Admin</a>
+            <a class="nav-link text-center" href="{{ url_for('main.admin') }}">Admin</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.add_questions') }}">Add Questions</a>
+            <a class="nav-link text-center" href="{{ url_for('main.add_questions') }}">Add Questions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.quiz') }}">Quiz</a>
+            <a class="nav-link text-center" href="{{ url_for('main.quiz') }}">Quiz</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.result') }}">Result</a>
+            <a class="nav-link text-center" href="{{ url_for('main.result') }}">Result</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.leaderboard') }}">Leaderboard</a>
+            <a class="nav-link text-center" href="{{ url_for('main.leaderboard') }}">Leaderboard</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+            <a class="nav-link text-center" href="{{ url_for('main.logout') }}">Logout</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+            <a class="nav-link text-center" href="{{ url_for('main.login') }}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+            <a class="nav-link text-center" href="{{ url_for('main.register') }}">Register</a>
           </li>
           {% endif %}
         </ul>
