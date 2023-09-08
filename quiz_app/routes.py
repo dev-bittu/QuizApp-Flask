@@ -195,17 +195,13 @@ def admin():
     if current_user.is_admin:
         # {title: {link: link_of_btn(to_be_redirected), btn_text: text}}
         panel_options = {
-            "Get Results": {
-                "link": url_for("main.admin_results"),
-                "btn-text": "Get"
+            "Upload Questions": {
+                "link": url_for("main.admin_upload_questions"),
+                "btn-text": "Upload"
             },
             "Verify & Add Questions": {
                 "link": url_for("main.admin_add_questions"),
                 "btn-text": "Add"
-            },
-            "Upload Questions": {
-                "link": url_for("main.admin_upload_questions"),
-                "btn-text": "Upload"
             },
             "Create SETs": {
                 "link": url_for("main.admin_create_set"),
@@ -218,6 +214,10 @@ def admin():
             "Distribute SETs": {
                 "link": url_for("main.admin_distribute_sets"),
                 "btn-text": "Distribute"
+            },
+            "Get Results": {
+                "link": url_for("main.admin_results"),
+                "btn-text": "Get"
             }
         }
         return render(
