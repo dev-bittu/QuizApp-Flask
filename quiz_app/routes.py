@@ -310,7 +310,8 @@ def admin_create_set():
         return render(
             "admin/create_set.html", 
             questions = models.Question.query.filter_by(
-                question_set_id = None
+                question_set_id = None,
+                verified=True
             ).all()
         )
     else:
