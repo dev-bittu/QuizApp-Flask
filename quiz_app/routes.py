@@ -114,7 +114,12 @@ def add_questions():
 def quiz():
     if request.method == "POST":
         data = request.form.to_dict()
-        total_questions = len(models.Question.query.filter_by(verified=True).all())
+        qset = current_user.question_set
+        total_questions = len(
+            models.Question.query.filter_by(
+                question_set_id = qset
+            ).all()
+        )
         result = models.Result(
             total_number=total_questions,
             correct=0,
@@ -126,7 +131,8 @@ def quiz():
             q, o = data.get(f"q{i}", None), data.get(f"q{i}o", None)
             question = models.Question.query.filter_by(
                 id=q,
-                correct_option=o
+                correct_option=o,
+                verified=True
             ).first()
             if question is not None:
                 result.correct += 1
@@ -137,7 +143,10 @@ def quiz():
         db.session.commit()
         flash("quiz complete", "success")
         return redirect(url_for("main.result"))
-    questions = models.Question.query.filter_by(verified=True).all()
+    print("abcdefg", current_user, current_user.question_set)
+    questions = models.Question.query.filter_by(
+        question_set_id = current_user.question_set
+    ).all()
     shuffle(questions)
     return render(
         "quiz.html",
@@ -151,7 +160,7 @@ def quiz():
 def result():
     res = models.Result.query.filter_by(
         user_id=current_user.id
-    )
+    ).all()
     if res is not None:
         return render(
             "result.html", 

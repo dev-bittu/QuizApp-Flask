@@ -47,7 +47,7 @@ class QuestionSet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=True)
     questions = db.relationship("Question", backref="qset")
-    user_id = db.relationship("User", backref="users")
+    user_id = db.relationship("User", backref="qset")
 
     def __repr__(self):
         return f"QuestionSet({self.id}, {[i.id for i in self.questions]})"
