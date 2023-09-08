@@ -194,7 +194,7 @@ def leaderboard():
 def admin():
     if current_user.is_admin:
         # {title: {link: link_of_btn(to_be_redirected), btn_text: text}}
-        adm_options = {
+        panel_options = {
             "Get Results": {
                 "link": url_for("main.admin_results"),
                 "btn-text": "Get"
@@ -222,7 +222,7 @@ def admin():
         }
         return render(
             "admin/admin.html",
-            adm_options = adm_options
+            panel_options = panel_options
         )
     else:
         flash("You are not an admin, so you can't access this", "warning")
