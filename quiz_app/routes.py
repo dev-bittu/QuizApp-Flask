@@ -185,7 +185,7 @@ def result():
 def leaderboard():
     res = models.Result.query.order_by(
         models.Result.correct.desc()
-    ).limit(5).all()
+    ).all()
     return render("leaderboard.html", results=res)
 
 
