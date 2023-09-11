@@ -23,7 +23,8 @@ def load_questions(file, verbose: bool = True) -> dict:
         total_questions = len(data) // 3
         qs = []
         for i in range(0, len(data), 3):
-            q, o, co = data[i], data[i+1].split("\n"), data[i+2]
+            q, o, co = data[i], [i for i in data[i+1].strip().split("\n") if i], data[i+2]
+        
             if (n:=len(o)) != 4:
                 if verbose:
                     print(f"\ninstead of filling 4 option RollNo:{roll_no} has filled {n} options.!!!\n".upper())
