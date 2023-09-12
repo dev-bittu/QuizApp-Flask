@@ -11,7 +11,7 @@ def load_questions(file, verbose: bool = True) -> dict:
     '''
     qbank, questions = [], {}
 
-    with open(file, "r") as f:
+    with open(file, "r", encoding="utf-8") as f:
         rows = reader(f)
         for row in rows:
             qbank.append(row)
