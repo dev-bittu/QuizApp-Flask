@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Text, unique=False, nullable=False)
+    question = db.Column(db.Text, unique=True, nullable=False)
     option1 = db.Column(db.String, nullable=False)
     option2 = db.Column(db.String, nullable=False)
     option3 = db.Column(db.String, nullable=False)
