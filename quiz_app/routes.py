@@ -22,9 +22,9 @@ from add_questions import (
     add_to_db
 )
 from flask import current_app
+from .constants import ADD_QUESTIONS
 
 main = Blueprint("main", __name__)
-ADD_QUESTIONS = 3
 
 @main.route("/")
 def index():
