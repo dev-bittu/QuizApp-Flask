@@ -16,12 +16,14 @@ for i, index in zip(d, range(len(d))):
         "password": pwd
     })
 
-print(data)
 from app import app
 from quiz_app.models import *
 from quiz_app.extentions import db
 
 with app.app_context():
     for i in data:
-        db.session.add(User(**i))
+        user = User(**i)
+        user.set_password(i["password"])
+        db.session.add(user)
+        print(i, user.password)
     db.session.commit()

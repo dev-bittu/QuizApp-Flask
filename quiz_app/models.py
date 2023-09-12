@@ -1,6 +1,10 @@
 from .extentions import db
 from datetime import datetime
 from flask_login import UserMixin
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +15,12 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     result = db.relationship("Result", backref="user")
     question_set = db.Column(db.Integer, db.ForeignKey("questionset.id"), nullable=True)
+
+    def set_password(self, pwd):
+        self.password = generate_password_hash(pwd)
+
+    def verify_password(self, pwd):
+        return check_password_hash(self.password, pwd)
 
     def __repr__(self):
         return f"User({self.id}, '{self.name}')"

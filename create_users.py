@@ -22,19 +22,18 @@ def create_user(name: str = "bittu", id: int = None, password: str = "devbittu",
             user = User(
                 id=id,
                 name=name,
-                password=password,
                 is_admin=is_admin
             ) if id is None else User(
                 name=name,
-                password=password,
                 is_admin=is_admin
             )
+            user.set_password(password)
             db.session.add(user)
             db.session.commit()
             print(f"User with name '{name}' created successfully")
         return User
 
-def create_user_bulk(users: list):
+def create_user_bulk(users: list, hashed=False):
     '''Creates users in bulk
     Paramter:
       - users: list 
@@ -47,8 +46,11 @@ def create_user_bulk(users: list):
     with app.app_context():
         for user in users:
             try:
-                db.session.add(User(**user))
+                u = User(**user)
+                u.set_password(user["password"])
+                db.session.add(u)
                 db.session.commit()
+                print(user, u.password)
             except Exception as e:
                 print(f"Error, while adding user {user}\n{e}")
 

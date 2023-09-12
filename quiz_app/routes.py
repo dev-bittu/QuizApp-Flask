@@ -39,10 +39,9 @@ def login():
         data = request.form.to_dict()
         user = models.User.query.filter_by(
             name=data["name"],
-            password=data["password"],
             is_admin=True if "is_admin" in data.keys() else False
         ).first()
-        if user is not None:
+        if user is not None and user.verify_password(data["password"]):
             login_user(user)
             flash("logged in successfully", "success")
             return redirect(url_for("main.index"))
@@ -73,9 +72,9 @@ def register():
             return redirect(url_for("main.register"))
         user = models.User(
             name=name,
-            password=password,
             is_admin=False
         )
+        user.set_password(data["password"])
         db.session.add(user)
         db.session.commit()
         flash("register complete", "success")
